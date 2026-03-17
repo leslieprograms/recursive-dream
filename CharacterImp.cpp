@@ -1,4 +1,9 @@
-//Description: RECURSION_INCEPTION
+
+// ****************************************************
+// CharacterImp.cpp
+// Implements Character class methods
+// Handles command loading, printing, and recursion logic
+// ****************************************************
 
 #include <iostream>
 #include <vector>
@@ -8,55 +13,40 @@
 
 using namespace std;
 
+// Constructor: Loads commands from file
 Character::Character(string filename){
-    //Assign index to -1 to start before command
-    currentIndex = -1; 
-    //Open file
+    currentIndex = -1; // Start before command
     iFile.open(filename);
-
-    //If files opens
     if(iFile.is_open()){
-        //Reads recursively
-        readFromFile();
+        readFromFile(); // Recursively read commands
     }
 }
 
-//Destructor
+// Destructor: Closes file
 Character::~Character(){
-    //If file opens
     if(iFile.is_open()){
-        //Close file
         iFile.close(); 
     }
 }
 
-//Stores in reverse order
+// Recursively stores commands in reverse order
 void Character::readFromFile(){
     string temp;
-    
-    //Reads info from file
     if(getline(iFile, temp)){
         readFromFile();
-        //Add current line
-        commands.push_back(temp);
+        commands.push_back(temp); // Add current line
     }
 }
 
-//Displays commmands stored in vector
+// Prints commands stored in vector
 void Character::printCommands(){
-    //Commands recieved message
     cout << "The following are the commands received:\n";
-
     for (size_t i = 0; i < commands.size(); ++i) {
-        //Display commands
         cout << commands[i];
-
-        //Remove newline of the last command
         if (i != commands.size() - 1) {
             cout << "\n";
         }
     }
-
 }
 
 //Reverses string
