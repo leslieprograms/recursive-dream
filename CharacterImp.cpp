@@ -49,70 +49,70 @@ void Character::printCommands(){
     }
 }
 
-//Reverses string
+// Reverses string
 string Character::reverseString(string command, 
 string reverseCommand, int index){
-    //If index is less than 0, return an empty string
+    // If index is less than 0, return an empty string
     if (index < 0){
         return reverseCommand;
     }
     reverseCommand += command[index];
-    //Add the current character + recurse
+    // Add the current character + recurse
     return reverseString(command, reverseCommand, index - 1);
 }
 
 int Character::fibonacci(int num){
-    //Base case
+    // Base case
     if (num <= 0){
         return 0; 
     }
-    //Base case
+    // Base case
     if (num == 1){
         return 1;
     }
     
-    //Sum of two fibonacci numbers
+    // Sum of two fibonacci numbers
     return fibonacci(num - 1) + fibonacci(num - 2);
 }
 
-//Starts the dream process
+// Starts the dream process
 void Character::startDreaming(){
-    //Next command
+    // Next command
     currentIndex++;
     if(currentIndex >= static_cast<int>(commands.size())){
         currentIndex--;
         return;
     }
     
-    //Calculate dream level
+    // Calculate dream level
     int dreamLevel = currentIndex + 1;
 
-    //Get current command
+    // Get current command
     string command = commands[currentIndex];
 
-    //Reverse command
+    // Reverse command
     string reversed = reverseString
     (command, "", command.size() - 1);
     
-    //Create dream object
+    // Create dream object
     Dream *dream = new Dream(fibonacci(dreamLevel), 
     dreamLevel);
     
     if (command == reversed || currentIndex == 
     static_cast<int>(commands.size()) - 1){
-        //Free memory 
+        // Free memory 
         delete dream;
-        //Back to previous level
+        //B ack to previous level
         currentIndex--;
         return;
     }
 
-    //Call dream level
+    // Call dream level
     startDreaming();
     
-    //Free memory for dream object
+    // Free memory for dream object
     delete dream;
 
-    //Back to previous command
+    // Back to previous command
     currentIndex--;
 }
